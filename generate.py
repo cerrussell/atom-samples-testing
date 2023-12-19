@@ -32,7 +32,7 @@ def build_args():
         '-o',
         '--output-dir',
         type=Path,
-        default='/home/runner/work/atom-samples/atom-samples',
+        default='/home/runner/work/atom-samples-testing/atom-samples-testing',
         help='Path to output',
         dest='output_dir',
     )

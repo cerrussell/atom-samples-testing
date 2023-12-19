@@ -166,8 +166,8 @@ jobs:
           CDXGEN_DEBUG_MODE: debug
         run: |
           python generate.py -s ${{ inputs.filter-slice-type }} ${{ env.FILTER }}
-          bash /home/runner/work/atom-samples/atom-samples/sdkman_installs.sh
-          bash /home/runner/work/atom-samples/atom-samples/atom_commands.sh
+          bash /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs.sh
+          bash /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands.sh
           python generate.py --cleanup
 
       - name: Optional second run
@@ -176,14 +176,14 @@ jobs:
           SDKMAN_DIR: /home/runner/.sdkman
           CDXGEN_DEBUG_MODE: debug
         run: |
-          mv /home/runner/work/atom-samples/atom-samples/sdkman_installs.sh /home/runner/work/atom-samples/atom-samples/sdkman_installs-run1.sh
-          mv /home/runner/work/atom-samples/atom-samples/atom_commands.sh /home/runner/work/atom-samples/atom-samples/atom_commands-run1.sh
+          mv /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs.sh /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs-run1.sh
+          mv /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands.sh /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands-run1.sh
           python generate.py ${{ inputs.run-twice }}
-          bash /home/runner/work/atom-samples/atom-samples/sdkman_installs.sh
-          bash /home/runner/work/atom-samples/atom-samples/atom_commands.sh
+          bash /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs.sh
+          bash /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands.sh
           python generate.py --cleanup
-          mv /home/runner/work/atom-samples/atom-samples/sdkman_installs.sh /home/runner/work/atom-samples/atom-samples/sdkman_installs-run2.sh
-          mv /home/runner/work/atom-samples/atom-samples/atom_commands.sh /home/runner/work/atom-samples/atom-samples/atom_commands-run2.sh
+          mv /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs.sh /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs-run2.sh
+          mv /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands.sh /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands-run2.sh
 
       - name: Generate shell scripts only
         if: inputs.debug-cmds
@@ -193,24 +193,24 @@ jobs:
       - name: Generate shell scripts only - second run
         if: inputs.debug-cmds && inputs.run-twice
         run: |
-          mv /home/runner/work/atom-samples/atom-samples/sdkman_installs.sh /home/runner/work/atom-samples/atom-samples/sdkman_installs-run1.sh
-          mv /home/runner/work/atom-samples/atom-samples/atom_commands.sh /home/runner/work/atom-samples/atom-samples/atom_commands-run1.sh
+          mv /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs.sh /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs-run1.sh
+          mv /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands.sh /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands-run1.sh
           python generate.py --debug-cmds ${{ inputs.run-twice }}
-          mv /home/runner/work/atom-samples/atom-samples/sdkman_installs.sh /home/runner/work/atom-samples/atom-samples/sdkman_installs-run2.sh
-          mv /home/runner/work/atom-samples/atom-samples/atom_commands.sh /home/runner/work/atom-samples/atom-samples/atom_commands-run2.sh
+          mv /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs.sh /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs-run2.sh
+          mv /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands.sh /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands-run2.sh
 
       - name: Upload slices as artifact
         if: ${{ ! inputs.debug-cmds && ! inputs.commit-updates  }}
         uses: actions/upload-artifact@v3
         with:
           name: slices
-          path: /home/runner/work/atom-samples/atom-samples/**/*.json
+          path: /home/runner/work/atom-samples-testing/atom-samples-testing/**/*.json
 
       - name: Upload shell scripts generated as artifact
         uses: actions/upload-artifact@v3
         with:
           name: scripts
-          path: /home/runner/work/atom-samples/atom-samples/*.sh
+          path: /home/runner/work/atom-samples-testing/atom-samples-testing/*.sh
 
       - name: Upload cdxgen boms
         if: ${{ contains(inputs.filter-lang, 'java') || contains(inputs.filter-lang, 'javascript') }}
@@ -228,11 +228,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -n "${{ inputs.run-twice }}" ]; then
-            rm -rf /home/runner/work/atom-samples/atom-samples/sdkman_installs-run{1,2}.sh \
-                   /home/runner/work/atom-samples/atom-samples/atom_commands-run{1,2}.sh
+            rm -rf /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs-run{1,2}.sh \
+                   /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands-run{1,2}.sh
           else
-            rm -rf /home/runner/work/atom-samples/atom-samples/sdkman_installs.sh \
-                   /home/runner/work/atom-samples/atom-samples/atom_commands.sh
+            rm -rf /home/runner/work/atom-samples-testing/atom-samples-testing/sdkman_installs.sh \
+                   /home/runner/work/atom-samples-testing/atom-samples-testing/atom_commands.sh
           fi
 
           git config user.name "Team AppThreat"
