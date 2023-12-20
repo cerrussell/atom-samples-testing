@@ -292,5 +292,5 @@ jobs:
             if gh pr list -l "slice update" | grep -vq "no pull requests"; then
               echo "Pull request already exists.";
             else
-              gh pr create -l "slice update" --title ${{ env.COMMIT_MSG }} --body-file /home/runner/work/files.txt --reviewer cerrussell,prabhu
+              gh pr create -l "slice update" --title "${{ env.COMMIT_MSG }}" --body-file /home/runner/work/files.txt --reviewer cerrussell,prabhu
             fi
