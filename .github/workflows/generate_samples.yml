@@ -117,6 +117,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git fetch
           git_cmd='git branch --list -r "origin/update/slice-update"'
           pr=$(eval $git_cmd)
           if [ "$pr" != "  origin/update/slice-update" ]; then
