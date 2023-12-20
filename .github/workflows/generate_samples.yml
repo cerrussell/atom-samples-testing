@@ -247,7 +247,6 @@ jobs:
           sp=$(git add --dry-run java javascript python)
           if [ -n "$sp" ]; then
             echo "CHANGES=ready" >> "$GITHUB_ENV"
-            echo "$sp" > /home/runner/work/files.txt
           else
             echo "CHANGES=none" >> "$GITHUB_ENV"
           fi
@@ -264,7 +263,7 @@ jobs:
           else
             sp=$(git add java javascript python)
           fi
-          echo "$sp" > /home/runner/work/files.txt
+          echo "$sp" > /home/runner/work/atom-samples-testing/atom-samples-testing/files.txt
           if [ ${{ inputs.commit-msg }} == "autoupdate" ]; then
             echo "COMMIT_MSG=Slice update for atom "$ver"" >> "$GITHUB_ENV"
           else
