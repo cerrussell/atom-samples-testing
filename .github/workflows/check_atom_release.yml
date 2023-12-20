@@ -2,6 +2,11 @@ name: Check for new atom release
 
 on:
   workflow_dispatch:
+    inputs:
+      filter-projects:
+        description: For use in troubleshooting
+        required: false
+        default: ''
   schedule:
     - cron: '0 0 * * *'
 
@@ -30,3 +35,4 @@ jobs:
       pull-requests: write
     with:
       commit-msg: "autoupdate"
+      filter-projects: ${{ inputs.filter-projects }}

@@ -277,7 +277,7 @@ jobs:
 
 
       - name: Create PR
-        if: ${{ env.CHANGES == 'pushed' }}
+        if: ${{ env.CHANGES == 'pushed' || env.BRANCH == 'exists' }}
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -286,5 +286,5 @@ jobs:
             if gh pr list -l "slice update" | grep -vq "no pull requests"; then
               echo "Pull request already exists.";
             else
-              gh pr create -l "slice update" --title ${{ inputs.commit_msg }} --body-file /home/runner/work/files.txt --reviewer cerrussell,prabhu
+              gh pr create -l "slice update" --title ${{ env.COMMIT_MSG }} --body-file /home/runner/work/files.txt --reviewer cerrussell,prabhu
             fi
