@@ -280,6 +280,11 @@ jobs:
           git push --set-upstream origin update/slice-update
           echo "CHANGES=pushed" >> "$GITHUB_ENV"
 
+      - name: Create file for PR if no new pushes
+        if: ${{ env.CHANGES == 'none' && env.BRANCH == 'exists' }}
+        run: |
+          echo "slice update" > /home/runner/work/atom-samples-testing/atom-samples-testing/files.txt
+
 
       - name: Create PR
         if: ${{ env.CHANGES == 'pushed' || env.BRANCH == 'exists' }}
