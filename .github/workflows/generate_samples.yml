@@ -61,6 +61,11 @@ on:
         required: false
         default: 'java javascript python'
         type: string
+      filter-projects:
+        description: Generate only for these projects (separated by spaces)
+        required: false
+        type: string
+        default: ''
 
 
 concurrency:
